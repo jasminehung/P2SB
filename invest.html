@@ -173,6 +173,7 @@ body {
   
 .homeimg{
 	width:70%; 
+	box-shadow:3px 3px 12px black;padding:0px;
 }		
 		
 		
@@ -188,9 +189,7 @@ body {
 	display: table;
 	clear: both;
 }
-@media screen and (max-width: 600px) {
 
-}
 @media only screen and (min-width: 600px) {
 .row {
 	width: 600px; }
@@ -200,8 +199,8 @@ body {
 }
 .homeimg{
 	width:100%;
-}
-		
+	box-shadow:3px 3px 12px black;padding:0px;
+}	
 
 td {
 vertical-align : middle;
@@ -364,7 +363,7 @@ function myFunction() {
     <!--th class="success-fixed hidden-xs">輸入金額</th-->
   </tr>
   </thead>
-  <tbody class="ellipsis">
+ <tbody class="ellipsis">
     <tr class="loan box">
 	
      <td data-th="利率" class="position-relative">    
@@ -375,14 +374,16 @@ function myFunction() {
             </div>        
           </span>
           <span>
-                        <span class="apr">10.00%</span>          
+                        <span class="apr">7.00%</span>          
           </span>
         </span>
       </td>
             <td data-th="期數">12 期</td>
-            <td data-th="貸款目的">
+
+            <td data-th="貸款商家">
 			<a class="button" href="#popup1">陳老闆健康冷凍水煮餐</a>
 			</td>   
+
             <td data-th="保護比例">
         
         <span class="position-relative shield-width-fixed">
@@ -424,28 +425,26 @@ function myFunction() {
 		</div>
 	</div>
 </div>
+
 	<tr class="loan box" >
-            <td data-th="利率" class="position-relative">
-        
-                
-                
+            <td data-th="利率" class="position-relative">     
         <span class="td__rank-container">
           <span class="flex-vertical-center">
                         <div class="position-relative inline-block" data-tooltip="">
-              <img class="rank" src="./css/3C2_NPR.svg" alt="3C2_NPR">
-                            
-            </div>
-                        
+              <img class="rank" src="./css/3C2_NPR.svg" alt="3C2_NPR">                
+            </div>            
           </span>
           <span>
-                        <span class="apr">12.50%</span>
-                       
+          <span class="apr">10.50%</span>           
             </span>
           </span>
         </span>
       </td>
-            <td data-th="期數">24 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup2">小四美妝</a></td>
+
+            <td data-th="期數">20 期</td>
+
+            <td data-th="貸款商家"><a class="button" href="#popup2">小四美妝</a></td>
+
             <td data-th="保護比例">
         
         <span class="position-relative shield-width-fixed">
@@ -455,6 +454,7 @@ function myFunction() {
           </span>
         </span>
       </td>
+
             <td>
         
         <div class="market__progress-bar">
@@ -465,6 +465,7 @@ function myFunction() {
         
       </div>
       </td>
+
             <td class="font-size-small" data-th="下架倒數">
         <div class="hidden-xs">
           <strong>可投資餘額 $37,000</strong>
@@ -472,6 +473,7 @@ function myFunction() {
         <span class="countdown">36天 2時 43分</span>
         
       </td>
+
             
           
     </tr><tr class="loan box">
@@ -485,15 +487,15 @@ function myFunction() {
                         
           </span>
           <span>
-                        <span class="apr">10.00%</span>
-                       
-              
-           
+                        <span class="apr">5.00%</span>
           </span>
         </span>
       </td>
+
             <td data-th="期數">12 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup3">888專業手機配件</a></td>
+
+            <td data-th="貸款商家"><a class="button" href="#popup3">888專業手機配件</a></td>
+
             <td data-th="保護比例">
         
         <span class="position-relative shield-width-fixed">
@@ -503,6 +505,7 @@ function myFunction() {
           </span>
         </span>
       </td>
+
             <td>
         
         <div class="market__progress-bar margin-bottom-sm">
@@ -510,6 +513,7 @@ function myFunction() {
           <span class="bar-text bright cover" style="width: 124.688%;">80%</span>
         </div>
         <span class="bar-text">80%</span>
+
           
         </span>
       </div>
@@ -518,34 +522,28 @@ function myFunction() {
         <div class="hidden-xs">
           <strong>可投資餘額 $99,000</strong>
         </div>
-        <span class="countdown">15天 2時 43分</span>
-        
-      </td>       
-           
+        <span class="countdown">15天 2時 43分</span> 
+      </td>         
     </tr><tr class="loan box">
-            <td data-th="利率" class="position-relative">
-        
-                
-                
+            <td data-th="利率" class="position-relative">    
         <span class="td__rank-container">
           <span class="flex-vertical-center">
                         <div class="position-relative inline-block" data-tooltip="">
               <img class="rank" src="./css/3C1_NPR.svg" alt="3C1_NPR">
                             
-            </div>
-                        
+            </div>        
           </span>
           <span>
-                        <span class="apr">13.00%</span>
+                        <span class="apr">7.80%</span>
                        
             </span>
           </span>
         </span>
       </td>
+
             <td data-th="期數">12 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup4">王山精品服飾</a></td>
+            <td data-th="貸款商家"><a class="button" href="#popup4">王山精品服飾</a></td>
             <td data-th="保護比例">
-        
         <span class="position-relative shield-width-fixed">
           
           <span class="shield-pgr-text">
@@ -553,6 +551,7 @@ function myFunction() {
           </span>
         </span>
       </td>
+
             <td>
         
         <div class="market__progress-bar margin-bottom-sm">
@@ -560,77 +559,63 @@ function myFunction() {
           <span class="bar-text bright cover" style="width: 132.353%;">75%</span>
         </div>
         <span class="bar-text">75%</span>
-     
       </div>
       </td>
+
             <td class="font-size-small" data-th="下架倒數">
         <div class="hidden-xs">
           <strong>可投資餘額 $110,000</strong>
         </div>
         <span class="countdown">30天 2時 43分</span>
-        
-      </td>
-        
+      </td>  
     </tr><tr class="loan box">
-            <td data-th="利率" class="position-relative">
-        
-                
-                
+            <td data-th="利率" class="position-relative"> 
         <span class="td__rank-container">
           <span class="flex-vertical-center">
                         <div class="position-relative inline-block" data-tooltip="">
-              <img class="rank" src="./css/3C1_NPR.svg" alt="3C1_NPR">
-                            
-            </div>
-                        
+              <img class="rank" src="./css/3C1_NPR.svg" alt="3C1_NPR">                   
+            </div>        
           </span>
           <span>
-                        <span class="apr">10.00%</span>
-                       
+                        <span class="apr">10.00%</span>         
           </span>
         </span>
       </td>
+
             <td data-th="期數">18 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup5">Latif平價網路服飾</a></td>
-            <td data-th="保護比例">
-        
-        <span class="position-relative shield-width-fixed">
-          
+            <td data-th="貸款商家"><a class="button" href="#popup5">Latif平價網路服飾</a></td>
+            <td data-th="保護比例">  
+        <span class="position-relative shield-width-fixed">      
           <span class="shield-pgr-text">
             無
           </span>
         </span>
       </td>
+
             <td>
-        
         <div class="market__progress-bar">
         <div class="bar" style="width: 75.2%;">
           <span class="bar-text bright cover" style="width: 132.979%;">75%</span>
         </div>
-        <span class="bar-text">75%</span>
-        
+        <span class="bar-text">75%</span> 
       </div>
       </td>
+
             <td class="font-size-small" data-th="下架倒數">
         <div class="hidden-xs">
           <strong>可投資餘額 $62,000</strong>
         </div>
         <span class="countdown">24天 2時 43分</span>
-        
       </td>
+
         
     </tr><tr class="loan box">
-            <td data-th="利率" class="position-relative">
-        
-                
-                
+            <td data-th="利率" class="position-relative">   
         <span class="td__rank-container">
           <span class="flex-vertical-center">
                         <div class="position-relative inline-block" data-tooltip="">
-              <img class="rank" src="./css/3C2_NPR.svg" alt="3C2_NPR">
-                            
-            </div>
-                        
+              <img class="rank" src="./css/3C2_NPR.svg" alt="3C2_NPR">                    
+            </div>              
           </span>
           <span>
                         <span class="apr">12.00%</span>
@@ -638,19 +623,16 @@ function myFunction() {
           </span>
         </span>
       </td>
-            <td data-th="期數">30 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup5">Kathy日系女裝代購</a></td>
+            <td data-th="期數">15 期</td>
+            <td data-th="貸款商家"><a class="button" href="#popup5">Kathy日系女裝代購</a></td>
             <td data-th="保護比例">
-        
-        <span class="position-relative shield-width-fixed">
-          
+        <span class="position-relative shield-width-fixed"> 
           <span class="shield-pgr-text">
             無
           </span>
         </span>
       </td>
             <td>
-        
         <div class="market__progress-bar margin-bottom-sm">
         <div class="bar" style="width: 74.3478%;">
           <span class="bar-text bright cover" style="width: 134.503%;">74%</span>
@@ -659,37 +641,36 @@ function myFunction() {
      
       </div>
       </td>
+
             <td class="font-size-small" data-th="下架倒數">
         <div class="hidden-xs">
           <strong>可投資餘額 $59,000</strong>
         </div>
         <span class="countdown">31天 2時 43分</span>
-        
       </td>
            
     </tr>
 	
 	<tr class="loan box">
             <td data-th="利率" class="position-relative">
-        
-                
-                
+
         <span class="td__rank-container">
           <span class="flex-vertical-center">
                         <div class="position-relative inline-block" data-tooltip="">
               <img class="rank" src="./css/3C5_NPR.svg" alt="3C5_NPR">
                             
-            </div>
-                        
+            </div>      
           </span>
           <span>
-                        <span class="apr">19.00%</span>
-                       
+                        <span class="apr">6.00%</span>        
           </span>
         </span>
       </td>
+
             <td data-th="期數">24 期</td>
-            <td data-th="貸款目的"><a class="button" href="#popup5">Latif平價網路服飾</a></td>
+
+            <td data-th="貸款商家"><a class="button" href="#popup5">Latif平價網路服飾</a></td>
+
             <td data-th="保護比例">
         
         <span class="position-relative shield-width-fixed">
@@ -700,13 +681,11 @@ function myFunction() {
         </span>
       </td>
             <td>
-        
         <div class="market__progress-bar">
         <div class="bar" style="width: 65.5%;">
           <span class="bar-text bright cover" style="width: 152.672%;">65%</span>
         </div>
         <span class="bar-text">65%</span>
-        
       </div>
       </td>
             <td class="font-size-small" data-th="下架倒數">
@@ -798,7 +777,7 @@ function myFunction() {
                     <h4 class="font-weight-normal font-weight-bold">信用評等怎麼看？</h4>
           <hr class="simple-faq-short-hr">
           <div class="text-brand-gray">
-            信用評等是基於不同的條件、信用紀錄而定，每一個評等都通過了LnB的嚴格篩選！信用評等不同的差異在於年利率不同，也影響風險保護比例賠付比例。
+            信用評等是基於不同的條件、信用紀錄而定，每一個評等都通過了平台嚴格篩選！信用評等不同的差異在於年利率不同，也影響風險保護比例賠付比例。
           </div>
                   </div>
           </div>
