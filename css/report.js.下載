@@ -1,0 +1,679 @@
+// Restricts input for each element in the set of matched elements to the given inputFilter.
+(function($) {
+  $.fn.inputFilter = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      }
+    });
+  };
+}(jQuery));
+
+this.RoboReport = function() {
+
+    var report_data_folder = "/welcome/Content/json/report/";
+    var form = $(".trial-form");
+    var ageElm = $('input[name="age"]', form);
+    var errorElm = $(".invalid-feedback", form);
+    var submitElm = $(".submit-report", form);
+    var quickSearchMode = false;
+    var setCookie = function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    var getCookie = function(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var getUrlParams = function(prop) {
+        var params = {};
+        var search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf('?') + 1));
+        var definitions = search.split('&');
+
+        definitions.forEach(function(val, key) {
+            var parts = val.split('=', 2);
+            params[parts[0]] = parts[1];
+        });
+
+        // console.log('params[ prop ]',params[ prop ]);
+        // console.log('prop && prop in params',prop && prop in params);
+        // console.log('params',params)
+        // console.log('---------');
+        return (prop && prop in params) ? params[prop] : undefined;
+    }
+    var output = function(total, minCount, maxCount, minNumber, maxNumber) {
+        if (total == 0) {
+            return [];
+        }
+        var numbs = [];
+
+        if (minCount > maxCount || minNumber > maxNumber || total <= 0)
+            return null;
+
+        if (minCount == maxCount)
+            return null;
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+        }
+
+        function checkArr(arr) {
+            var check = 0;
+            for (var i in arr) {
+                check += arr[i];
+            }
+
+            return total == check && (arr.length >= minCount && arr.length <= maxCount);
+        }
+
+        function getRandArr() {
+            var _arr = [],
+                calTotal = 0,
+                min = minNumber,
+                max = maxNumber;
+
+            var arrLength = getRandomIntInclusive(minCount, maxCount);
+            var x = total / minNumber;
+            var y = total / arrLength;
+
+
+
+
+            if (min < y)
+                min = y;
+
+            if (y > max)
+                max = min;
+
+            for (var i = 1; i <= arrLength; i++) {
+
+                var newNum = getRandomIntInclusive(min, max);
+
+                var leftNum = total - calTotal;
+                if (newNum > leftNum)
+                    newNum = leftNum;
+
+                if (newNum !== 0) {
+                    _arr.push(newNum);
+                    calTotal += newNum;
+                }
+            }
+
+
+            return _arr;
+        }
+
+        numbs = getRandArr();
+
+        //console.log('check:', checkArr(numbs), numbs);
+        return numbs;
+    }
+
+    var initPanelToggle = function() {
+        var $container = $('[role="slide-toggle-container"]');
+        var $trigger = $('[role="slide-toggle-trigger"]');
+        var $target = $('.panel-group [role="slide-toggle-target"]');
+        // console.log('trigger.',$trigger.length);
+        $trigger.bind("click", function(e) {
+            var $this = $(this);
+            var target = $this.closest($container).find($target);
+
+            target.slideToggle();
+
+            if ($this.hasClass("active")) {
+                var movingtarget = $this.closest($container).attr("data-panel");
+                $("html, body").animate({
+                    scrollTop: $(movingtarget).offset().top - 100
+                });
+            }
+
+            $this.closest($container).toggleClass("active");
+            $this.toggleClass("active");
+
+        });
+    }
+    var addEventListener = function() {
+        initPanelToggle();
+    }
+
+    var numberWithCommas = function(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    var checkInputIsValid = function(age, risk, budget, period) {
+        if (isNaN(age)) {
+            console.log('isNaN',isNaN(age));
+            return false;
+        }
+
+        var riskAry = ["positive", "steady", "conservative"];
+        // console.log(jQuery.inArray(risk,riskAry));
+        if (jQuery.inArray(risk, riskAry) == -1) {
+            return false;
+        }
+
+
+        var budgetAry = ["5000", "10000", "15000"];
+        // console.log(jQuery.inArray(budget,budgetAry));
+        if (jQuery.inArray(budget, budgetAry) == -1) {
+            return false;
+        }
+
+
+        var periodAry = ["short", "medium", "long"];
+        // console.log(jQuery.inArray(budget,budgetAry));
+        if (jQuery.inArray(period, periodAry) == -1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    var loadReport = function(age, risk, budget, period) {
+        if (age <= 30) {
+            age = 20;
+        } else if (age > 30 && age <= 40) {
+            age = 30;
+        } else if (age > 40 && age <= 50) {
+            age = 40;
+        } else if (age > 50) {
+            age = 50;
+        }
+        var report_data_file = "age" + age + "." + risk + "." + budget + ".json";
+        var report_data_path = report_data_folder + report_data_file;
+        // console.log('report_data_path',report_data_path)
+        $.getJSON(report_data_path, function(data) {
+
+            }).done(function(data) {
+                // console.log( "second success" );
+                var info = {};
+                //console.log(data);
+                data.age = age;
+                generateReports(data);
+                initPanelToggle();
+            })
+            .fail(function(e) {
+                //console.log(e + report_data_path+"不存在");
+                location.href = "/welcome/#trial";
+                //$('#trynowModal').modal()
+                // alert(report_data_path+"不存在")
+            })
+            .always(function() {
+                //console.log( "complete" );
+            });;
+    }
+
+    var generateReports = function(a_obj) {
+
+        var index = 1;
+
+        var risk = "";
+        switch (a_obj.risk) {
+            case "positive":
+                risk = "積極追求市場走勢";
+                break;
+
+            case "steady":
+                risk = "穩健成長向上累積";
+                break;
+
+            case "conservative":
+                risk = "保守投資夜夜好眠";
+                break;
+        }
+        var cookie_age = getCookie("age");
+        // console.log(a_obj.budget);
+        a_obj.overview = a_obj.overview.replace(/%AGE%/gi, '<span class="highlight">' + cookie_age + "</span>");
+        a_obj.overview = a_obj.overview.replace(/%BUDGET%/gi, '<span class="highlight">TWD ' + numberWithCommas(a_obj.budget) + "</span>");
+        // console.log(a_obj.overview);
+        a_obj.overview = decodeURIComponent(a_obj.overview);
+        // console.log(a_obj.overview);
+        // console.log(a_obj.summary);
+        var html = '';
+
+        var investor_status_html = $("#investor-status-template").html();
+        investor_status_html = investor_status_html.replace(/%AGE%/gi, '<span class="highlight">' + cookie_age + "</span>");
+        investor_status_html = investor_status_html.replace(/%BUDGET%/gi, '<span class="highlight">TWD ' + numberWithCommas(a_obj.budget) + "</span>");
+        investor_status_html = investor_status_html.replace(/%RISK%/gi, '<span class="highlight">' + risk + "</span>");
+        investor_status_html = investor_status_html.replace(/%OVERVIEW%/gi, a_obj.overview);
+        html += investor_status_html;
+
+        var panel_html = "";
+
+        console.log(a_obj.plan.length);
+        // for(var i in a_obj.plan){
+        switch(getCookie("period")){
+            case 'short':
+                var data = a_obj.plan[0];
+            break;
+
+            case 'medium':
+                var data = a_obj.plan[1];
+            break;
+
+            case 'long':
+                var data = a_obj.plan[a_obj.plan.length-1];
+            break;
+        }
+        
+        // var data = a_obj.plan[i];
+
+        var template;
+        var chart_template;
+        var assetschart_template;
+        // if(data.glide == "" || data.glideChart == ""){
+        if (data.glide == "") {
+            chart_template = $("#panel-item-template-chart-performance").html();
+        } else {
+            chart_template = $("#panel-item-template-chart-performance-glide").html();
+        }
+
+        if (data.ratio.bond > 0 && data.ratio.stock > 0) {
+            assetschart_template = $("#panel-item-template-assets-chart-both").html();
+        } else if (data.ratio.bond > 0 && data.ratio.stock == 0) {
+            assetschart_template = $("#panel-item-template-assets-chart-bond").html();
+        } else {
+            assetschart_template = $("#panel-item-template-assets-chart-stock").html();
+        }
+
+        template = $("#panel-item-template").html();
+
+        template = template.replace(/%INVESMENT_CHART%/, chart_template);
+        template = template.replace(/%ASSETS_CHART%/, assetschart_template);
+
+
+        // console.log(data.year);
+
+        template = template.replace(/%TITLE%/gi, data.title);
+
+        template = template.replace(/%SUMMARY%/gi, data.summary);
+        template = template.replace(/%PANEL_ID%/gi, "goal-" + cookie_age + "-" + a_obj.budget + "-" + index);
+        // template = template.replace(/%ASSETS_CHART%/gi,"img/report/piechart-low-middle.png");
+
+        // template = template.replace(/%TITLE%/gi,data.title);
+        template = template.replace(/%YEAR%/gi, data.year);
+        // console.log("data.target",data.target);
+        // console.log("a_obj.budget",a_obj.budget);
+        template = template.replace(/%TARGET%/gi, numberWithCommas(data.target));
+        template = template.replace(/%BUDGET%/gi, numberWithCommas(a_obj.budget));
+        template = template.replace(/%BOND%/gi, data.ratio.bond);
+        template = template.replace(/%STOCK%/gi, data.ratio.stock);
+        template = template.replace(/%RISK%/gi, a_obj.risk);
+
+        data.monteCarloChart = "/welcome/Content/img/report/" + a_obj.risk + "/" + "age" + a_obj.age + "-" + a_obj.budget + "-" + data.year + "y.jpg";
+        template = template.replace(/%MONTE_CARLO%/gi, data.monteCarlo);
+        template = template.replace(/%MONTE_CARLO_CHART%/gi, data.monteCarloChart);
+        template = template.replace(/%GLIDE%/gi, data.glide);
+
+        data.glideChart = "/welcome/Content/img/report/" + a_obj.risk + "/" + "glidepath.jpg";
+        template = template.replace(/%GLIDE_CHART%/gi, data.glideChart);
+        // console.log(template);
+        //
+        panel_html += template;
+        index++;
+        // }
+        $(".panel-group").empty();
+        $(".panel-group").append(html + panel_html);
+        //
+
+        // $(".bottom-panel").each(function(){
+        //     console.log($(".col-lg-6").height())
+        //     $("img",$(this)).each(function(){
+        //         console.log('img',$(this).height());
+        //     })
+        // })
+
+        //
+        $(".panel-group .panel").each(function() {
+            drawPieChart($(".pie-chart", $(this)));
+        })
+
+        switchMode('report');
+
+
+
+        $('html, body').animate({
+            scrollTop: $(".dashboard").offset().top-50
+        }, 'slow');
+    }
+
+    var drawPieChart = function(a_target) {
+        var canvas = a_target;
+        var ctx = canvas[0].getContext('2d'); //canvas.getContext('2d');
+        ctx.height = 280;
+        // Global Options:
+        Chart.defaults.global.defaultFontColor = 'black';
+        Chart.defaults.global.defaultFontSize = 16;
+
+        var risk = $(a_target).attr("data-risk");
+        // console.log(risk)
+        switch (risk) {
+            case "conservative":
+                var bond = output(parseInt($(a_target).attr("data-bond")), 1, 2, 5, 25);
+                // console.log('bond',bond);
+                break;
+
+            default:
+                var bond = output(parseInt($(a_target).attr("data-bond")), 3, 5, 5, 25);
+                break;
+        }
+        var stock = output(parseInt($(a_target).attr("data-stock")), 3, 6, 5, 25);
+
+
+        var chart_data = bond.concat(stock);
+
+        var bond_ref_color = ['#b6caef', '#7fa3e6', '#5783d2', '#3267ca', '#1a4697'];
+        var stock_ref_color = ['#bff5d9', '#96eebf', '#66d99c', '#3fc781', '#25b568', '#229e5c'];
+
+        var bond_color = [];
+        var stock_color = [];
+        for (var i = 0; i < bond.length; i++) {
+            bond_color.push(bond_ref_color.pop());
+        }
+        for (var i = 0; i < stock.length; i++) {
+            stock_color.push(stock_ref_color.pop());
+        }
+        var color_data = bond_color.concat(stock_color);
+
+        var borderWidth_data = [];
+        var borderColor_data = [];
+        for (var i in color_data) {
+            borderWidth_data.push(0);
+        }
+        var data = {
+            labels: [],
+            datasets: [{
+                fill: false,
+                backgroundColor: color_data,
+                data: chart_data,
+                borderColor: [],
+                borderWidth: borderWidth_data
+            }]
+        };
+        // Notice the rotation from the documentation.
+        var options = {
+            title: {
+                display: false,
+                text: '',
+                position: 'top'
+            },
+            responsive: true,
+            rotation: 1.6 * Math.PI,
+            cutoutPercentage: 80,
+            tooltips: {
+                enabled: false
+            }
+        };
+        // Chart declaration:
+        var myBarChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+
+
+    var restoreUserData = function() {
+        var age_cookie = getCookie("age");
+        var risk_cookie = getCookie("risk");
+        var budget_cookie = getCookie("budget");
+        var period_cookie = getCookie("period");
+        ageElm.val(age_cookie);
+
+        $(".risk .dropdown-menu a", form).each(function() {
+            if ($(this).attr("data-value") == risk_cookie) {
+                $(this).trigger("click");
+            }
+        });
+        $(".monthly-payment .dropdown-menu a", form).each(function() {
+            if ($(this).attr("data-value") == budget_cookie) {
+                $(this).trigger("click");
+            }
+        });
+    }
+    var validateForm = function() {
+        var ageVal = ageElm.val();
+        var obj = {};
+        var valid = true;
+        form.addClass("was-validated");
+        ageElm.removeClass("is-invalid");
+        ageElm.removeClass("is-valid");
+        if (ageVal == "") {
+            displayFeedback("請輸入您的年齡")
+            valid = false;
+        }
+
+        if (isNaN(ageVal)) {
+            displayFeedback("年齡必需為數字")
+            valid = false;
+        }
+
+        if(ageVal<20){
+            displayFeedback("年齡必需大於20歲");
+            valid = false;
+        }   
+
+        if(ageVal>80){
+            displayFeedback("年齡必需小於80歲");
+            valid = false;
+        }     
+           
+        if (!valid) {
+            ageElm.addClass("is-invalid");
+            ageElm.focus();
+        }
+
+        return valid;
+    }
+
+    var displayFeedback = function(a_str) {
+
+        errorElm.html(a_str);
+        if(a_str==""){
+            errorElm.hide();
+        }else{
+            errorElm.show();    
+        }
+        
+    }
+
+    var old = {};
+    var submitTrial = function(){
+        if (validateForm()) {
+            var result = form.serializeArray();
+            var time = new Date();
+            var url = '?force=1';
+            if(old == result){
+                console.log("all the same");
+            }else{
+                console.log("update");
+            }
+            for (var i in result) {
+                console.log(result[i].name,result[i].value);
+                setCookie(result[i].name, result[i].value, 1)
+                url += '&' + result[i].name + '=' + result[i].value;
+            }
+            displayFeedback("");
+            quickSearchMode = true;
+            initReport();
+            old = result;
+        }else{
+            switchMode('quiz');
+        } 
+    }
+    var addEventlistener = function() {
+
+
+        ageElm.inputFilter(function(value) {
+          return /^\d*$/.test(value);
+        });
+
+        submitElm.bind("click", function(event) {
+
+            submitTrial();
+        })
+
+        ageElm.bind("keyup",function(e){
+            
+            var val = parseInt($(this).val());
+
+            console.log('val',val); 
+
+            var html = '';
+            if(!isNaN(val) && val>=20){
+                if(val>40){
+                    html +='<a class="dropdown-item" href="javascript:;" alt="短期" title="短期" id="trial_option_period_短" data-value="short">短期</a>';
+                    html +='<a class="dropdown-item" href="javascript:;" alt="中長期" title="中長期" id="trial_option_period_中長" data-value="medium">中長期</a>';
+                }else{
+                    html +='<a class="dropdown-item" href="javascript:;" alt="短期" title="短期" id="trial_option_period_短" data-value="short">短期</a>';
+                    html +='<a class="dropdown-item" href="javascript:;" alt="中期" title="中期" id="trial_option_period_中" data-value="medium">中期</a>';
+                    html +='<a class="dropdown-item" href="javascript:;" alt="長期" title="長期" id="trial_option_period_長" data-value="long">長期</a>';
+                }
+                $("#trial-period-info").html(html);
+
+
+                $("#trial-period-info a", form).unbind("click").bind("click",function(e) {
+                    e.preventDefault();
+                    var scope = $(this).parents(".dropdown");
+                    $(".btn:first-child", scope).text($(this).text());
+                    $(".btn:first-child", scope).val($(this).text());
+                    $("input", scope).val($(this).attr("data-value"));
+                    
+                    if(quickSearchMode){
+                        submitTrial();   
+                    }
+                });
+                //
+                var current_period = $(".period-payment button").text();
+                //
+                var match = false;
+                $(".period-payment .dropdown-menu a").each(function(){
+                    if(current_period == $(this).text()){
+                        match = true
+                    }
+                })
+
+                if(!match){
+                    var index = $(".period-payment .dropdown-menu a").length-1
+                    var last = $(".period-payment .dropdown-menu a").eq(index);
+                    var last_text = last.text();
+                    var last_val = last.attr("data-value");
+                    $(".period-payment button").text(last_text);
+                    $("[name='period']").val(last_val);
+                    $(".period-payment .dropdown-menu a").eq(index).trigger("click");
+                }
+            }
+
+        })
+
+        ageElm.bind("change",function(e){
+            var val = parseInt($(this).val());
+            var html = '';
+            if(!isNaN(val) && val>=20){
+                if(quickSearchMode){
+                    submitTrial();   
+                }
+            }
+        })
+
+        $(".dropdown-menu a", form).click(function(e) {
+            e.preventDefault();
+            var scope = $(this).parents(".dropdown");
+            $(".btn:first-child", scope).text($(this).text());
+            $(".btn:first-child", scope).val($(this).text());
+            $("input", scope).val($(this).attr("data-value"));
+            
+            if(quickSearchMode){
+                submitTrial();   
+            }
+        });
+
+        $(".dropdown-menu", form).each(function() {
+            $(this).find("a").eq(0).trigger("click");
+        });
+
+        $(form).submit(function(e){
+                // alert('submit intercepted');
+            e.preventDefault();
+        });
+        $(document).on("click",'[role="try-again"]',function(){
+            switchMode('quiz');
+        });
+    }
+
+
+    var switchMode = function(a_mode) {
+
+        switch (a_mode) {
+            case "quiz":
+                $(".btn-coat").removeClass("d-none");
+                $(".panel-group").addClass("d-none");
+                $("[role='action-wrap']").addClass("d-none");
+            break;
+
+            case "report":
+                $(".btn-coat").addClass("d-none");
+                $(".panel-group").removeClass("d-none");
+                $("[role='action-wrap']").removeClass("d-none");
+            break;
+        }
+    }
+    var initReport = function() {
+
+        var age_get = getUrlParams("age");
+        var risk_get = getUrlParams("risk")
+        var period_get = getUrlParams("period")
+        var budget_get = getUrlParams("budget");
+        var force_get = getUrlParams("force");
+
+        var age_cookie = getCookie("age");
+        var risk_cookie = getCookie("risk");
+        var period_cookie = getCookie("period");
+        var budget_cookie = getCookie("budget");
+
+
+        if (checkInputIsValid(age_cookie, risk_cookie, budget_cookie, period_cookie)) {
+            var age = age_cookie;
+            var risk = risk_cookie;
+            var budget = budget_cookie;
+            var period = period_cookie;
+
+            loadReport(age, risk, budget,period);
+        } else {
+            return false;
+        }
+    }
+
+    var init = function() {
+        //initReport();
+        addEventlistener();
+        restoreUserData();
+    }
+
+    $(function() {
+        init();
+    });
+};
+var roboReport = new RoboReport();
