@@ -44,6 +44,7 @@
 .fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
       
     
+  
 
 
 .center {
@@ -69,9 +70,7 @@
   margin : 10px;
 }
   
-.shop_img{
-width:100%;
-} 
+
 
 .navbar-collapse {
   overflow: hidden;
@@ -122,11 +121,27 @@ width:100%;
   }
 }
 
+.shop_img{
+width:100%;
+} 
+
+.homeimg{
+	width:70%; 
+}
+
+
 @media only screen and (max-width: 600px) {
   .center {
     width: 100%;
 	}	
+.homeimg{
+	width:100%;	
+} 
+.shop_img{
+width:80%;
 }  
+}
+
 
 .navbar-collapse .a{
 	text-decoration: none;
@@ -180,17 +195,17 @@ function myFunction() {
 </center>
 <div class="row2 center">
   <div class="column" >
-<a href="#"> 
+<a href="https://shopline.tw/"> 
 <img class="shop_img" src="shopline.png" > 
 </a>
   </div>
   <div class="column" >
- <a href="#"> 
+ <a href="https://shopee.tw/"> 
 <img class="shop_img" src="shopee.png" >
 </a>
   </div>
   <div class="column" >
-<a href="#">   
+<a href="https://auth.91app.com/identity/login?signin=0e3aa5f5ff6b2a857842115c9ec700ac">   
 <img class="shop_img" src="91.png" >
 </a>
   </div>
@@ -198,12 +213,12 @@ function myFunction() {
 
 <div class="row2 center">
   <div class="column" >
-<a href="#"> 
+<a href="https://ecvdr.pchome.com.tw/v2016/login/v1/"> 
 <img src="pchome.png"  style="width:100%"> 
 </a>
   </div>
   <div class="column" >
-<a href="#">  
+<a href="https://tw.bid.yahoo.com">  
 <img src="yahoo.png"  style="width:100%">
 </a>
   </div>
@@ -217,22 +232,27 @@ function myFunction() {
 
 
 </div>
- 
-                
-                
+           
 </div></div>
 
 
+
+
 <div class="market__wrapper background-pale v-cloak--hidden">
+<center>
+	<img class = "homeimg" src="timeline2.png">
+</center>
+
     <div class="market container-fluid padding-top-md padding-horizontal-lg">
-            <hr>
+          
+
             <div class="content-title">申貸人資料</div>
 
             <div class="container-fluid">
               <div class="row">
                 <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
                   <div class="form-group">
-                    <label>申貸人編號</label>
+                    <label>申貸人姓名</label>
                     <input type="text" class="form-control">
                   </div>
                 </div>
@@ -248,20 +268,15 @@ function myFunction() {
                       <input type="radio" class="checkbox-lnb hidden" id="advanced_gender_female" name="advanced_gender" value="female">
                       <label class="font-weight-normal" for="advanced_gender_female">女</label>
                     </div>
-                    <div class="radio-inline no-padding">
-                      <input type="radio" class="checkbox-lnb hidden" id="advanced_gender_null" name="advanced_gender" value="">
-                      <label class="font-weight-normal" for="advanced_gender_null">不拘</label>
-                    </div>
+              
                   </div>
                 </div>
 
                 <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
                   <div class="form-group">
                     <label>年齡</label>
-                    <input type="text" class="form-control narrow" placeholder="20">
-                    至
-                    <input type="text" class="form-control narrow" placeholder="60">
-                    歲
+                    <input type="text" class="form-control narrow" placeholder="30">
+                    
                   </div>
                 </div>
 
@@ -276,10 +291,7 @@ function myFunction() {
                       <input type="radio" class="checkbox-lnb hidden" id="advanced_marriage_status_unmarried" name="advanced_marriage_status" value="unmarried">
                       <label class="font-weight-normal" for="advanced_marriage_status_unmarried">未婚</label>
                     </div>
-                    <div class="radio-inline no-padding">
-                      <input type="radio" class="checkbox-lnb hidden" id="advanced_marriage_status_null" name="advanced_marriage_status" value="">
-                      <label class="font-weight-normal" for="advanced_marriage_status_null">不拘</label>
-                    </div>
+               
                   </div>
                 </div>
 
@@ -287,46 +299,42 @@ function myFunction() {
                   <div class="form-group">
                     <label>子女數</label>
                     <input type="text" class="form-control narrow" placeholder="0">
-                    至
-                    <input type="text" class="form-control narrow" placeholder="5">
-                    位
+                   
                   </div>
                 </div>
-
-                <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
-                  <div class="form-group">
-                    <label>畢業學校</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-
-                <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
-                  <div class="form-group">
-                    <label>畢業科系</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-
-                <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
-                  <div class="form-group">
-                    <label>最高學歷</label>
-                    <div class="btn-group bootstrap-select show-tick"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="可複選"><span class="filter-option pull-left">可複選</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="0"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">國小</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">國中</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">高中</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">大專院校</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">研究所</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">博士</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="selectpicker" multiple="multiple" title="可複選" tabindex="-98"><option value="elementary">國小</option><option value="junior_high">國中</option><option value="senior_high">高中</option><option value="bachelor">大專院校</option><option value="master">研究所</option><option value="doctor">博士</option></select></div>
-                  </div>
-                </div>
-
-                <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
+				 <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
+								  <div class="form-group">
+									<label>最高學歷</label>
+									<div class="btn-group bootstrap-select show-tick"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="可複選"><span class="filter-option pull-left">可複選</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="0"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">國小</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">國中</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">高中</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">大專院校</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">研究所</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">博士</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="selectpicker" multiple="multiple" title="可複選" tabindex="-98"><option value="elementary">國小</option><option value="junior_high">國中</option><option value="senior_high">高中</option><option value="bachelor">大專院校</option><option value="master">研究所</option><option value="doctor">博士</option></select></div>
+								  </div>
+								</div>
+                
+				<div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
                   <div class="form-group">
                     <label>年收入</label>
-                    <input type="text" class="form-control narrow" placeholder="50">
-                    至
-                    <input type="text" class="form-control narrow" placeholder="500">
-                    萬
+                    <input type="text" class="form-control narrow" placeholder="100">萬
+                  
+                  </div>
+                </div>
+				
+				<div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
+                  <div class="form-group">
+                    <label>電商名稱</label>
+                    <input type="text" class="form-control">
                   </div>
                 </div>
 
                 <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
                   <div class="form-group">
-                    <label>現職年資</label>
+                    <label>電商描述</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+
+
+                <div class="col col-xs-12 col-sm-6 col-md-4 margin-bottom-sm">
+                  <div class="form-group">
+                    <label>電商成立年資</label>
                     <div class="btn-group bootstrap-select show-tick"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="可複選"><span class="filter-option pull-left">可複選</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="0"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">三個月以下</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">三個月到半年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">半年以下</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">半年(含)~1年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">1年(含)~2年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">2年(含)~3年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="6"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">3年(含)~5年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="7"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">5年(含)~7年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="8"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">7年(含)~10年</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="9"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">10年(含)以上</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="selectpicker" multiple="multiple" title="可複選" tabindex="-98"><option value="0-0.25">三個月以下</option><option value="0.25-0.6">三個月到半年</option><option value="0-0.5">半年以下</option><option value="0.5-1">半年(含)~1年</option><option value="1-2">1年(含)~2年</option><option value="2-3">2年(含)~3年</option><option value="3-5">3年(含)~5年</option><option value="5-7">5年(含)~7年</option><option value="7-10">7年(含)~10年</option><option value="10+">10年(含)以上</option></select></div>
                   </div>
                 </div>
@@ -398,53 +406,8 @@ function myFunction() {
 </div>          </div>
       
 
-      <div class="background-pale">
-  <section class="simple-faq ">
-    <div class="simple-faq-container no-margin ">
-              <div class="simple-faq-question">
-                      <div class="margin-bottom-md">
-              <img class="simple-faq-icon" src="./css/sort-amount-up.svg">
-            </div>
-                    <h4 class="font-weight-normal font-weight-bold">投資有金額上下限嗎?</h4>
-          <hr class="simple-faq-short-hr">
-          <div class="text-brand-gray">
-            每一個案件的投資金額最低為1,000元，單筆上限為您當下案件的可投資額度。您可以進行多筆案件的投資組合，總額無上限！
-          </div>
-                  </div>
-              <div class="simple-faq-question">
-                      <div class="margin-bottom-md">
-              <img class="simple-faq-icon" src="./css/dollar-sign.svg">
-            </div>
-                    <h4 class="font-weight-normal font-weight-bold">投資需要支付哪些費用？</h4>
-          <hr class="simple-faq-short-hr">
-          <div class="text-brand-gray">
-            投資人只需要支付手續費，費用的高低是根據申貸人的信用評等、金額與期數有關，可於每筆標的中的詳細資料查看。
-          </div>
-                  </div>
-              <div class="simple-faq-question">
-                      <div class="margin-bottom-md">
-              <img class="simple-faq-icon" src="./css/star.svg">
-            </div>
-                    <h4 class="font-weight-normal font-weight-bold">信用評等怎麼看？</h4>
-          <hr class="simple-faq-short-hr">
-          <div class="text-brand-gray">
-            信用評等是基於不同的條件、信用紀錄而定，每一個評等都通過了LnB的嚴格篩選！信用評等不同的差異在於年利率不同，也影響風險保護比例賠付比例。
-          </div>
-                  </div>
-          </div>
-  </section>
-</div>
     </div>
-        <div class="btn-chatroom hidden notWorkTime" data-is-production="1" style="cursor: pointer;">
-  <img class="btn-chatroom__img" src="./css/btn-chatroom@2x.png" data-rjs="2" data-no-resize="" title="LnB即時通" alt="LnB即時通" data-rjs-processed="true">
-                  <form class="btn-chatroom__form" action="https://chat.lnb.com.tw:43443/" target="Lnbwindow" onsubmit="chatroomWindwoOpen()" method="post">
-    <input type="hidden" name="username" value="User">
-    <input type="hidden" name="isanymous" value="1">
-    <input type="submit" value="LnB即時通">
-  </form>
-  <div class="chatroomStatus">聯絡我們</div>
-
-  </div>
+    
     </div>
 
         <link rel="stylesheet" href="./css/icon">
@@ -476,8 +439,4 @@ var ROOT=document.getElementById("ROOT"),memberSerial=ROOT.dataset.memberSerial,
       }, 300000);
     </script>
 
-    
-
-  
-    
   </body></html>
